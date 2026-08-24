@@ -1,0 +1,241 @@
+﻿@model WebApplication11.Models.MovieViewModel
+@{
+ViewData["Title"] = "Кінопошук (SQLite)";
+}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --accent-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --error-color: #f87171;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .app-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 720px;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background-color: #0f172a;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--accent-color);
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .search-btn:hover {
+            background-color: var(--accent-hover);
+            color: #ffffff;
+        }
+
+        .error-msg {
+            color: var(--error-color);
+            background-color: rgba(248, 113, 113, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .movie-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @@media (min-width: 540px) {
+            .movie-card {
+                flex-direction: row;
+            }
+        }
+
+        .poster {
+            width: 190px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .movie-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .movie-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: #334155;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            background-color: #f59e0b;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .field-title {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .plot {
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #0f172a;
+            padding: 10px 14px;
+            border-radius: 8px;
+        }
+
+        .history-item span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h1>🎬 Кінопошук</h1>
+
+    <form asp-action="Index" method="post" class="search-form">
+        <input type="text"
+               asp-for="SearchQuery"
+               class="search-input"
+               placeholder="Введіть назву фільму англійською..."
+               required />
+        <button type="submit" class="search-btn">Пошук</button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+    <div class="error-msg">@Model.ErrorMessage</div>
+    }
+
+    @if (Model.CurrentMovie != null)
+    {
+    <div class="movie-card">
+        <div class="poster-wrapper">
+            <img class="poster"
+                 src="@(Model.CurrentMovie.Poster != "N/A" ? Model.CurrentMovie.Poster : "https://via.placeholder.com/200x300?text=No+Poster")"
+                 alt="@Model.CurrentMovie.Title" />
+        </div>
+        <div class="movie-info">
+            <div class="movie-title">@Model.CurrentMovie.Title</div>
+            <div class="meta-tags">
+                <span class="tag">Рік: @Model.CurrentMovie.Year</span>
+                <span class="tag">Тривалість: @Model.CurrentMovie.Runtime</span>
+                <span class="tag rating">★ IMDb: @Model.CurrentMovie.ImdbRating</span>
+            </div>
+            <p><span class="field-title">Режисер:</span> @Model.CurrentMovie.Director</p>
+            <p><span class="field-title">Актори:</span> @Model.CurrentMovie.Actors</p>
+            <p><span class="field-title">Опис:</span></p>
+            <p class="plot">@Model.CurrentMovie.Plot</p>
+        </div>
+    </div>
+    }
+
+    @if (Model.RecentMovies.Any())
+    {
+    <h2>📜 Останні пошуки (з локальної SQLite БД)</h2>
+    <div class="history-list">
+        @foreach (var item in Model.RecentMovies)
+        {
+        <div class="history-item">
+            <div>
+                <strong>@item.Title</strong> (@item.Year)
+            </div>
+            <span>★ @item.ImdbRating | @item.SearchedAt.ToString("g")</span>
+        </div>
+        }
+    </div>
+    }
+</div>
+
+</body>
+</html>

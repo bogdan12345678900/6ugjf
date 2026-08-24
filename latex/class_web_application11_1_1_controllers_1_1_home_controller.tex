@@ -1,0 +1,107 @@
+\doxysection{Web\+Application11.\+Controllers.\+Home\+Controller Class Reference}
+\hypertarget{class_web_application11_1_1_controllers_1_1_home_controller}{}\label{class_web_application11_1_1_controllers_1_1_home_controller}\index{WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}}
+
+
+Головний контролер вебзастосунку «Кінопошук». Відповідає за відображення інтерфейсу користувача, виконання пошуку фільмів через OMDb API та кешування/\+збереження історії пошуків у локальній базі даних SQLite.  
+
+
+Inheritance diagram for Web\+Application11.\+Controllers.\+Home\+Controller:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_web_application11_1_1_controllers_1_1_home_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_web_application11_1_1_controllers_1_1_home_controller_a5fe9d02df7af4013dc4a961cc4f09da0}{Home\+Controller}} (\doxymbox{\hyperlink{interface_web_application11_1_1_services_1_1_i_omdb_service}{IOmdb\+Service}} omdb\+Service, \doxymbox{\hyperlink{class_web_application11_1_1_data_1_1_app_db_context}{App\+Db\+Context}} context)
+\begin{DoxyCompactList}\small\item\em Ініціалізує новий екземпляр класу Home\+Controller. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_web_application11_1_1_controllers_1_1_home_controller_a0c0248fed33b1d25e424813e6e3f7500}{Index}} ()
+\begin{DoxyCompactList}\small\item\em Обробляє HTTP GET запит на головну сторінку додатка. Завантажує останні 5 фільмів з історії пошуків SQLite БД. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_web_application11_1_1_controllers_1_1_home_controller_aab40493c2ab4d4928383be1ab518658a}{Index}} (\doxymbox{\hyperlink{class_web_application11_1_1_models_1_1_movie_view_model}{Movie\+View\+Model}} model)
+\begin{DoxyCompactList}\small\item\em Обробляє HTTP POST запит при надсиланні форми пошуку фільму. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Головний контролер вебзастосунку «Кінопошук». Відповідає за відображення інтерфейсу користувача, виконання пошуку фільмів через OMDb API та кешування/\+збереження історії пошуків у локальній базі даних SQLite. 
+
+Контролер використовує підхід Dependency Injection (DI) для отримання сервісу IOmdb\+Service та контексту бази даних App\+Db\+Context. 
+
+\label{class_web_application11_1_1_controllers_1_1_home_controller_doc-constructors}
+\Hypertarget{class_web_application11_1_1_controllers_1_1_home_controller_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_web_application11_1_1_controllers_1_1_home_controller_a5fe9d02df7af4013dc4a961cc4f09da0}\index{WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}!HomeController@{HomeController}}
+\index{HomeController@{HomeController}!WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}}
+\doxysubsubsection{\texorpdfstring{HomeController()}{HomeController()}}
+{\footnotesize\ttfamily \label{class_web_application11_1_1_controllers_1_1_home_controller_a5fe9d02df7af4013dc4a961cc4f09da0} 
+Web\+Application11.\+Controllers.\+Home\+Controller.\+Home\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{interface_web_application11_1_1_services_1_1_i_omdb_service}{IOmdb\+Service}}}]{omdb\+Service}{, }\item[{\doxymbox{\hyperlink{class_web_application11_1_1_data_1_1_app_db_context}{App\+Db\+Context}}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Ініціалізує новий екземпляр класу Home\+Controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em omdb\+Service} & Сервіс отримання даних про фільми з OMDb API.\\
+\hline
+{\em context} & Контекст бази даних SQLite.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Argument\+Null\+Exception} & Виникає, якщо один із переданих сервісів є null.\\
+\hline
+\end{DoxyExceptions}
+
+
+\label{class_web_application11_1_1_controllers_1_1_home_controller_doc-func-members}
+\Hypertarget{class_web_application11_1_1_controllers_1_1_home_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_web_application11_1_1_controllers_1_1_home_controller_a0c0248fed33b1d25e424813e6e3f7500}\index{WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}!Index@{Index}}
+\index{Index@{Index}!WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}}
+\doxysubsubsection{\texorpdfstring{Index()}{Index()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_web_application11_1_1_controllers_1_1_home_controller_a0c0248fed33b1d25e424813e6e3f7500} 
+async Task$<$ IAction\+Result $>$ Web\+Application11.\+Controllers.\+Home\+Controller.\+Index (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Обробляє HTTP GET запит на головну сторінку додатка. Завантажує останні 5 фільмів з історії пошуків SQLite БД. 
+
+\begin{DoxyReturn}{Returns}
+Об\textquotesingle{}єкт IAction\+Result з представленням сторінки Index та моделлю Movie\+View\+Model, що містить список останніх пошуків. 
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Повертає головну сторінку з історією пошуків.$<$/\+response$>$ \Hypertarget{class_web_application11_1_1_controllers_1_1_home_controller_aab40493c2ab4d4928383be1ab518658a}\index{WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}!Index@{Index}}
+\index{Index@{Index}!WebApplication11.Controllers.HomeController@{WebApplication11.Controllers.HomeController}}
+\doxysubsubsection{\texorpdfstring{Index()}{Index()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_web_application11_1_1_controllers_1_1_home_controller_aab40493c2ab4d4928383be1ab518658a} 
+async Task$<$ IAction\+Result $>$ Web\+Application11.\+Controllers.\+Home\+Controller.\+Index (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_web_application11_1_1_models_1_1_movie_view_model}{Movie\+View\+Model}}}]{model}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Обробляє HTTP POST запит при надсиланні форми пошуку фільму. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Модель Movie\+View\+Model з введеною назвою фільму.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Об\textquotesingle{}єкт IAction\+Result з оновленими даними про фільм та оновленою історією пошуку. 
+\end{DoxyReturn}
+
+
+Логіка виконання:
+\begin{DoxyEnumerate}
+\item Перевіряє вхідний рядок на порожнечу.
+\item Виконує асинхронний запит до OMDb API.
+\item У разі успіху перевіряє наявність фільму у БД SQLite:
+\begin{DoxyItemize}
+\item Якщо фільм вже є — оновлює час пошуку Movie\+Entity.\+Searched\+At.
+\item Якщо фільм новий — зберігає новий запис у таблицю.
+\end{DoxyItemize}
+\item Повертає оновлену модель у Razor View. 
+\end{DoxyEnumerate}
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+Controllers/Home\+Controller.\+cs\end{DoxyCompactItemize}
