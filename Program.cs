@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication11.Data;
 using WebApplication11.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
@@ -16,7 +15,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
+    DbInitializer.Seed(db);
 }
 
 if (!app.Environment.IsDevelopment())

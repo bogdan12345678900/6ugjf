@@ -14,6 +14,7 @@ namespace WebApplication11.Models
         public string Director { get; set; } = string.Empty;
         public string Actors { get; set; } = string.Empty;
         public string Plot { get; set; } = string.Empty;
+        public bool IsFavorite { get; set; } = false;
         public DateTime SearchedAt { get; set; } = DateTime.UtcNow;
     }
 }
